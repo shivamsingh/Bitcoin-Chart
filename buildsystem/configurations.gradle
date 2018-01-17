@@ -1,0 +1,12 @@
+ext {
+    android = [
+            buildToolsVersion: "26.0.2",
+            minSdkVersion    : 16,
+            targetSdkVersion : 26,
+            compileSdkVersion: 26
+    ]
+
+    endpoints = [
+            blockchain_endpoint_url = "\"https://api.blockchain.info/\"",
+    ]
+}

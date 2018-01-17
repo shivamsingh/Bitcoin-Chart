@@ -11,6 +11,8 @@ android {
         targetSdkVersion androidVersions.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "BLOCKCHAIN_API_URL", blockchain_endpoint_url
     }
 
     buildTypes {
@@ -53,6 +55,9 @@ dependencies {
     // Dagger 2
     api commonDependencies.dagger2
     annotationProcessor commonDependencies.dagger2Compiler
+    api commonDependencies.dagger2Android
+    api commonDependencies.dagger2AndroidSupport
+    annotationProcessor commonDependencies.dagger2AndroidCompiler
     testAnnotationProcessor commonDependencies.dagger2Compiler
     compileOnly commonDependencies.javaxAnnotation
 
