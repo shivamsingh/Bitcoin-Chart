@@ -2,6 +2,7 @@ package com.blockchain.di;
 
 import android.app.Application;
 
+import com.blockchain.BitcoinApplication;
 import com.blockchain.di.module.ActivityBindingModule;
 import com.blockchain.di.module.ApplicationModule;
 import com.blockchain.di.module.NetworkModule;
@@ -17,11 +18,10 @@ import dagger.android.support.DaggerApplication;
 @Singleton
 @Component(modules = {
         ApplicationModule.class, NetworkModule.class, ActivityBindingModule.class,
-        AndroidSupportInjectionModule.class
-})
+        AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
-    void inject(BlockchainApplication foursquareApplication);
+    void inject(BitcoinApplication foursquareApplication);
 
     @Component.Builder
     interface Builder {

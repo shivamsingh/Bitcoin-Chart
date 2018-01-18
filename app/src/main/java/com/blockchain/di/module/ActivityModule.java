@@ -3,8 +3,6 @@ package com.blockchain.di.module;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.blockchain.di.qualifiers.ForActivity;
 
@@ -25,10 +23,5 @@ public class ActivityModule {
     @Provides
     Context provideContext() {
         return activity;
-    }
-
-    @Provides
-    FragmentManager provideFragmentManager(@NonNull final AppCompatActivity activity) {
-        return activity.getSupportFragmentManager();
     }
 }
