@@ -14,7 +14,8 @@ public final class MarketPriceViewModelModule {
 
     @Singleton
     @Provides
-    static ViewModelProvider.Factory viewModelProviderFactory(ViewModelUtil viewModelUtil, MarketPriceViewModel viewModel) {
+    static ViewModelProvider.Factory viewModelProviderFactory(ViewModelUtil viewModelUtil,
+                                                              MarketPriceViewModel viewModel) {
         return viewModelUtil.createFor(viewModel);
     }
 }

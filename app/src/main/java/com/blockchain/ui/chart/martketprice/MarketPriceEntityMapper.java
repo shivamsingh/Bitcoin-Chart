@@ -2,27 +2,18 @@ package com.blockchain.ui.chart.martketprice;
 
 import com.blockchain.data.chart.marketprice.MarketPrice;
 
-import java.util.List;
+import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class MarketPriceEntityMapper implements Function<List<MarketPrice>, List<MarketPriceEntity>> {
+public class MarketPriceEntityMapper implements Function<MarketPrice, MarketPriceEntity> {
 
-    @Override
-    public List<MarketPriceEntity> apply(List<MarketPrice> marketPrices) throws Exception {
-        return Observable
-                .fromIterable(marketPrices)
-                .map(new MarketPriceEntityItemMapper())
-                .toList()
-                .blockingGet();
+    @Inject
+    public MarketPriceEntityMapper() {
     }
 
-    class MarketPriceEntityItemMapper implements Function<MarketPrice, MarketPriceEntity> {
-
-        @Override
-        public MarketPriceEntity apply(MarketPrice marketPrice) throws Exception {
-            return null;
-        }
+    @Override
+    public MarketPriceEntity apply(MarketPrice marketPrice) throws Exception {
+        return null;
     }
 }

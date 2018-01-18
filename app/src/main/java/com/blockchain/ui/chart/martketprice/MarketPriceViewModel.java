@@ -13,6 +13,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -52,7 +53,9 @@ public class MarketPriceViewModel extends ViewModel {
         return retrieveMarketPriceList
                 .getBehaviourStream(Option.none())
                 .observeOn(Schedulers.computation())
+                .flatMap(Observable::fromIterable)
                 .map(marketPriceEntityMapper)
+                .toList()
                 .subscribe(marketPriceListLiveData::postValue,
                         e -> Log.e(TAG, "Error updating market price list live data", e));
     }

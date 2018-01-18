@@ -1,6 +1,5 @@
 package com.blockchain.data.store;
 
-import android.database.Observable;
 import android.support.annotation.NonNull;
 
 import java.util.HashMap;
@@ -9,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 import polanski.option.Option;

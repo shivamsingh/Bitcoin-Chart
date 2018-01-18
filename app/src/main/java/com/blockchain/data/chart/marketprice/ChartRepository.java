@@ -1,4 +1,4 @@
-package com.blockchain.domain.chart.marketprice;
+package com.blockchain.data.chart.marketprice;
 
 import com.blockchain.data.chart.marketprice.MarketPrice;
 

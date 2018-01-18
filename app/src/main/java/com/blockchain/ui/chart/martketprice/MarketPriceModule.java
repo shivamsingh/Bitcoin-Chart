@@ -2,8 +2,8 @@ package com.blockchain.ui.chart.martketprice;
 
 import com.blockchain.di.scope.ActivityScope;
 import com.blockchain.di.scope.FragmentScope;
-import com.blockchain.domain.chart.marketprice.BitcoinChartRepository;
-import com.blockchain.domain.chart.marketprice.ChartRepository;
+import com.blockchain.data.chart.marketprice.BitcoinChartRepository;
+import com.blockchain.data.chart.marketprice.ChartRepository;
 
 import dagger.Binds;
 import dagger.Module;

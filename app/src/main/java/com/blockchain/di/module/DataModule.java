@@ -5,5 +5,5 @@ import com.blockchain.data.chart.marketprice.ChartMarketPriceDataModule;
 import dagger.Module;
 
 @Module(includes = {ChartMarketPriceDataModule.class})
-final class DataModule {
+public final class DataModule {
 }

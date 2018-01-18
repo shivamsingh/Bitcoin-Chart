@@ -38,7 +38,6 @@ public class MarketPriceChartFragment extends BaseFragment {
         viewModel.marketPriceLiveData().observe(this, this::updateChart);
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -47,5 +46,4 @@ public class MarketPriceChartFragment extends BaseFragment {
 
     private void updateChart(List<MarketPriceEntity> marketPriceEntities) {
     }
-
 }

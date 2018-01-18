@@ -1,10 +1,10 @@
 package com.blockchain.data.store;
 
-import android.database.Observable;
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import polanski.option.Option;
 
 public interface ReactiveStore<Key, Value> {

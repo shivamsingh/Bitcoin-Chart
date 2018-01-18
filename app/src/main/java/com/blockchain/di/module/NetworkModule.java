@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-@Module
+@Module(includes = InstrumentationModule.class)
 public class NetworkModule {
     private static final String API_URL = "API_URL";
 
@@ -63,8 +63,9 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    static OkHttpClient provideApiOkHttpClient(@AppInterceptor Set<Interceptor> appInterceptor,
-                                               @NetworkInterceptor Set<Interceptor> networkInterceptor) {
+    static OkHttpClient provideApiOkHttpClient(
+            @AppInterceptor Set<Interceptor> appInterceptor,
+            @NetworkInterceptor Set<Interceptor> networkInterceptor) {
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
         okBuilder.interceptors().addAll(appInterceptor);
         okBuilder.networkInterceptors().addAll(networkInterceptor);

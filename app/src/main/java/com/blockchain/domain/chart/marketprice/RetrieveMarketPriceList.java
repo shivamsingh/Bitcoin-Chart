@@ -1,6 +1,7 @@
 package com.blockchain.domain.chart.marketprice;
 
 import com.blockchain.common.rx.UnwrapOptionTransformer;
+import com.blockchain.data.chart.marketprice.BitcoinChartRepository;
 import com.blockchain.data.chart.marketprice.MarketPrice;
 import com.blockchain.domain.ReactiveInteractor;
 
@@ -19,10 +20,10 @@ import static io.reactivex.Single.just;
 public class RetrieveMarketPriceList implements ReactiveInteractor.RetrieveInteractor<Void, List<MarketPrice>> {
 
     @Nonnull
-    private final ChartRepository chartRepository;
+    private final BitcoinChartRepository chartRepository;
 
     @Inject
-    public RetrieveMarketPriceList(@Nonnull ChartRepository chartRepository) {
+    RetrieveMarketPriceList(@Nonnull BitcoinChartRepository chartRepository) {
         this.chartRepository = chartRepository;
     }
 
