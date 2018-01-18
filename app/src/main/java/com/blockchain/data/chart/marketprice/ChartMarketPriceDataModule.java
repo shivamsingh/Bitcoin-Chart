@@ -21,6 +21,4 @@ public class ChartMarketPriceDataModule {
     ChartService chartService(Retrofit retrofit) {
         return retrofit.create(ChartService.class);
     }
-
-
 }
