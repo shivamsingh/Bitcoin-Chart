@@ -86,6 +86,12 @@ dependencies {
     testAnnotationProcessor commonDependencies.autoValue
     androidTestAnnotationProcessor commonDependencies.autoValue
 
+    // AutoValue Type Adapter
+    compileOnly commonDependencies.autoValueGson
+    annotationProcessor commonDependencies.autoValueGson
+    testAnnotationProcessor commonDependencies.autoValueGson
+    androidTestAnnotationProcessor commonDependencies.autoValueGson
+
     // Optionals
     api commonDependencies.options
 
