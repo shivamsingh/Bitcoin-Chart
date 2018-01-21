@@ -6,7 +6,7 @@ import com.blockchain.di.DaggerAppComponent;
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
 
-public class BitcoinApplication extends DaggerApplication {
+public class BlockchainApplication extends DaggerApplication {
 
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
