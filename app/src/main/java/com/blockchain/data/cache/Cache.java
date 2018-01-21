@@ -88,7 +88,8 @@ public class Cache<Key, Value> implements Store.MemoryStore<Key, Value> {
                 .filter(this::notExpired)
                 .map(CacheEntry::cachedObject)
                 .toList()
-                .filter(ListUtils::isNotEmpty);
+                .filter(ListUtils::isNotEmpty)
+                .subscribeOn(Schedulers.computation());
     }
 
     private CacheEntry<Value> createCacheEntry(Value value) {

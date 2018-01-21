@@ -52,7 +52,7 @@ public class MemoryReactiveStore<Key, Value> implements ReactiveStore<Key, Value
     public void putAll(@NonNull final List<Value> values) {
         cache.putAll(values);
 
-        publishAll();
+        allSubject.onNext(ofObj(values));
         publishInEachKey();
     }
 
