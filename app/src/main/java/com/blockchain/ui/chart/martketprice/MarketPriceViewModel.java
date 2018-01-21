@@ -13,11 +13,11 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import polanski.option.Option;
+
+import static polanski.option.Option.none;
 
 public class MarketPriceViewModel extends ViewModel {
 
@@ -45,18 +45,22 @@ public class MarketPriceViewModel extends ViewModel {
     }
 
     @NonNull
-    public LiveData<List<MarketPriceEntity>> marketPriceLiveData() {
+    LiveData<List<MarketPriceEntity>> marketPriceLiveData() {
         return marketPriceListLiveData;
     }
 
     private Disposable bindToMarketPrice() {
         return retrieveMarketPriceList
-                .getBehaviourStream(Option.none())
+                .getBehaviourStream(none())
                 .observeOn(Schedulers.computation())
-                .flatMap(Observable::fromIterable)
                 .map(marketPriceEntityMapper)
-                .toList()
                 .subscribe(marketPriceListLiveData::postValue,
                         e -> Log.e(TAG, "Error updating market price list live data", e));
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.dispose();
     }
 }

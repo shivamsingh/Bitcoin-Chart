@@ -47,6 +47,8 @@ public class NetworkModule {
     static Gson provideGson(Set<TypeAdapterFactory> typeAdapters) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+        for (TypeAdapterFactory factory : typeAdapters)
+            gsonBuilder.registerTypeAdapterFactory(factory);
         return gsonBuilder.create();
     }
 
@@ -69,7 +71,6 @@ public class NetworkModule {
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
         okBuilder.interceptors().addAll(appInterceptor);
         okBuilder.networkInterceptors().addAll(networkInterceptor);
-
         return okBuilder.build();
     }
 }

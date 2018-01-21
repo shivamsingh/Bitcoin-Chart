@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 import polanski.option.Option;
@@ -39,7 +40,7 @@ public class MemoryReactiveStore<Key, Value> implements ReactiveStore<Key, Value
     }
 
     @Override
-    public void put(@NonNull Value value) {
+    public void put(@NonNull final Value value) {
         Key key = extractKeyFromModel.call(value);
         cache.put(value);
         getOrCreateSubjectForKey(key).onNext(ofObj(value));
@@ -48,7 +49,7 @@ public class MemoryReactiveStore<Key, Value> implements ReactiveStore<Key, Value
     }
 
     @Override
-    public void putAll(@NonNull List<Value> values) {
+    public void putAll(@NonNull final List<Value> values) {
         cache.putAll(values);
 
         publishAll();
@@ -56,19 +57,22 @@ public class MemoryReactiveStore<Key, Value> implements ReactiveStore<Key, Value
     }
 
     @Override
-    public void replaceAll(@NonNull List<Value> values) {
+    public void replaceAll(@NonNull final List<Value> values) {
         cache.clear();
         putAll(values);
     }
 
     @Override
-    public Observable<Option<Value>> get(@NonNull Key key) {
-        return null;
+    public Observable<Option<Value>> get(@NonNull final Key key) {
+        return Observable.defer(() -> getOrCreateSubjectForKey(key))
+                .startWith(getValue(key))
+                .observeOn(Schedulers.computation());
     }
 
     @Override
     public Observable<Option<List<Value>>> getAll() {
-        return null;
+        return Observable.defer(() -> allSubject.startWith(getAllValues()))
+                .observeOn(Schedulers.computation());
     }
 
     private Subject<Option<Value>> getOrCreateSubjectForKey(@NonNull final Key key) {
@@ -107,5 +111,13 @@ public class MemoryReactiveStore<Key, Value> implements ReactiveStore<Key, Value
             processor = subjectMap.get(key);
         }
         ofObj(processor).ifSome(it -> it.onNext(model));
+    }
+
+    private Option<Value> getValue(@NonNull final Key key) {
+        return cache.get(key).map(Option::ofObj).blockingGet();
+    }
+
+    private Option<List<Value>> getAllValues() {
+        return cache.getAll().map(Option::ofObj).blockingGet(none());
     }
 }

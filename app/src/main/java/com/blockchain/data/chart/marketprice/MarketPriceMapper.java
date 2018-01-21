@@ -14,6 +14,10 @@ public class MarketPriceMapper implements Function<MarketPriceRaw, MarketPrice> 
 
     @Override
     public MarketPrice apply(MarketPriceRaw marketPriceRaw) throws Exception {
-        return null;
+        return MarketPrice.builder()
+                .price(marketPriceRaw.y())
+                //Convert EPOCH time to current milliseconds
+                .dateInMs(marketPriceRaw.x() * 1000)
+                .build();
     }
 }
