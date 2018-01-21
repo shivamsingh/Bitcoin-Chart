@@ -17,10 +17,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 public class MarketPriceChartFragment extends BaseFragment {
 
@@ -64,11 +65,19 @@ public class MarketPriceChartFragment extends BaseFragment {
     }
 
     private void updateChart(@NonNull final List<MarketPriceEntity> marketPriceEntities) {
-        List<Entry> values = new ArrayList<>();
-        for (MarketPriceEntity marketPriceEntity : marketPriceEntities)
-            values.add(new Entry(marketPriceEntity.dateInMs(), marketPriceEntity.price()));
+        List<Entry> values = Observable
+                .fromIterable(marketPriceEntities)
+                .map(this::createChartEntry)
+                .toList()
+                .blockingGet();
+
         chart.setData(new LineData(marketPriceDataSet(values)));
         chart.invalidate();
+    }
+
+    @NonNull
+    private Entry createChartEntry(MarketPriceEntity marketPriceEntity) {
+        return new Entry(marketPriceEntity.dateInMs(), marketPriceEntity.price());
     }
 
     @NonNull
