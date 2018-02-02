@@ -23,7 +23,7 @@ import dagger.android.support.DaggerApplication;
         AndroidSupportInjectionModule.class, DataModule.class, ViewModelModule.class})
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
-    void inject(BlockchainApplication foursquareApplication);
+    void inject(BlockchainApplication blockchainApplicationa);
 
     @Component.Builder
     interface Builder {

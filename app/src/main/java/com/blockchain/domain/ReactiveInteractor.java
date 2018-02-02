@@ -15,10 +15,10 @@ public interface ReactiveInteractor {
         Single<Result> getSingle(@Nonnull final Option<Params> params);
     }
 
-    interface RetrieveInteractor<Params, Object> extends ReactiveInteractor {
+    interface RetrieveInteractor<Params, Result> extends ReactiveInteractor {
 
         @Nonnull
-        Observable<Object> getBehaviourStream(@Nonnull final Option<Params> params);
+        Observable<Result> getBehaviourStream(@Nonnull final Option<Params> params);
     }
 
     interface RequestInteractor<Params, Result> extends ReactiveInteractor {
