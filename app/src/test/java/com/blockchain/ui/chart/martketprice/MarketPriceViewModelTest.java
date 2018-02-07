@@ -1,10 +1,14 @@
 package com.blockchain.ui.chart.martketprice;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
+
 import com.blockchain.data.chart.marketprice.MarketPrice;
 import com.blockchain.domain.chart.marketprice.RetrieveMarketPriceList;
 import com.blockchain.testcommon.BaseTest;
 
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -18,6 +22,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static polanski.option.Option.none;
 
 public class MarketPriceViewModelTest extends BaseTest {
+
+    @Rule
+    public InstantTaskExecutorRule otherRule = new InstantTaskExecutorRule();
 
     @Mock
     private RetrieveMarketPriceList interactor;
@@ -45,6 +52,17 @@ public class MarketPriceViewModelTest extends BaseTest {
                 .interactorEmitsMarketPrice(marketPrices);
 
         Mockito.verify(mapper).apply(marketPrices);
+    }
+
+    @Test
+    public void marketPriceViewEntityGoIntoLiveDataWhenInteractorEmitsMarketPrice() throws Exception{
+        List<MarketPriceEntity> marketPriceEntities = Collections.singletonList(Mockito.mock(MarketPriceEntity.class));
+        List<MarketPrice> marketPrices = Collections.singletonList(Mockito.mock(MarketPrice.class));
+
+        arrangeBuilder.withMappedMarketPriceEntities(marketPriceEntities)
+                .interactorEmitsMarketPrice(marketPrices);
+
+        assertThat(viewModel.marketPriceLiveData().getValue()).isEqualTo(marketPriceEntities);
     }
 
     private class ArrangeBuilder {
